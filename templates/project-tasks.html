@@ -1,0 +1,30 @@
+<html>
+  <body>
+    <h1>{{project.title}}'s Tasks</h1>
+    <ul>
+      {% for task in tasks %}
+        <li>{{ task.task_id }} {{ task.description }}</li>
+        <form action="/delete/task/{{task.task_id}}" method="POST">
+          <input type="submit" value="Delete Task">
+        </form>
+      {% endfor %} 
+    </ul>
+
+    <h3>Add new task</h3>
+    <form action="/add/task/{{project.project_id}}" method="POST">
+      Task: <input type="text" name="task-name">
+      <br>
+      <br>
+      <input type="submit" value="Add Task">
+    </form>
+
+    <h3>Delete project</h3>
+    <form action="/delete/project/{{project.project_id}}" method="POST">
+      <input type="submit" value="Delete Project">
+    </form>
+
+    {%- for category, message in get_flashed_messages(with_categories=true) %}
+      <div style="color: {{ category }}"> {{ message }}</div>
+    {%- endfor %}
+  </body>
+</html>
